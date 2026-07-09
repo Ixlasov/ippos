@@ -4,34 +4,49 @@
     <meta charset="UTF-8">
     <title>IP POS Tizimi</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: auto; }
-        #app-container { width: 100%; height: 100vh; border: none; }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        .loader-container {
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border-left-color: #007bff;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
-<div id="app-container">Tizim yuklanmoqda...</div>
+<div class="loader-container">
+    <div class="spinner"></div>
+    <h2>IP POS Tizimiga yo'naltirilmoqda...</h2>
+    <p>Iltimos, kuting.</p>
+</div>
 
 <script>
-    const GOOGLE_URL = "https://script.google.com/macros/s/AKfycbxSazNyjA0HqKWgDDBmTUo9hQWX0ZEvet93Fkz1meljsCo_ycz4IIeu0yetpG4Q-DL9kg/exec";
-
-    // Allorigins proksisi orqali Google-dagi tayyor HTML sahifani yuklab olamiz
-    fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(GOOGLE_URL)}`)
-        .then(response => response.text())
-        .then(html => {
-            // Yuklangan to'liq HTML-ni container ichiga joylashtiramiz
-            document.getElementById('app-container').innerHTML = html;
-            
-            // Ichidagi scriptlar ishlashi uchun ularni qayta yuklash kerak bo'lishi mumkin
-            const scripts = document.getElementById('app-container').getElementsByTagName('script');
-            for (let n = 0; n < scripts.length; n++) {
-                eval(scripts[n].innerText);
-            }
-        })
-        .catch(err => {
-            document.getElementById('app-container').innerText = "Yuklashda xatolik yuz berdi.";
-            console.error(err);
-        });
+    // Google Apps Script-ning o'z xavfsiz havolasi
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxSazNyjA0HqKWgDDBmTUo9hQWX0ZEvet93Fkz1meljsCo_ycz4IIeu0yetpG4Q-DL9kg/exec";
+    
+    // Foydalanuvchini to'g'ridan-to'g'ri Google-ga o'tkazib yuborish
+    window.location.href = GOOGLE_SCRIPT_URL;
 </script>
 
 </body>
